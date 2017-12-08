@@ -10,8 +10,39 @@ Python config-manager used at Alkivi
 
 Example
 
+Write a conf like
+
+```ini
+[default]
+; general configuration: default endpoint
+endpoint=dev
+
+[dev]
+; configuration specific to 'dev' endpoint
+env=dev
+
+[prod]
+; configuration specific to 'prod' endpoint
+env=prod
+```
+
 ```python
-# TODO
+from alkivi.config import ConfigManager
+config = ConfigManager('test')
+
+# This will look for several files, in order
+# 1. Current working directory: ``./test.conf``
+# 2. Current user's home directory ``~/.test.conf``
+# 3. System wide configuration ``/etc/test.conf``
+
+# Then find the endpoint
+endpoint = config.get('default', endpoint)
+
+# Or use a specific one
+endpoint = 'prod'
+
+# And then
+env = config.get(endpoint, 'env')
 ```
 
 ## Parameters
