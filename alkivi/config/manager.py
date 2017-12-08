@@ -38,7 +38,7 @@ except ImportError:  # pragma: no cover
     from configparser import RawConfigParser, NoSectionError, NoOptionError
 
 
-class ConfigurationManager(object):
+class ConfigManager(object):
     '''
     Application wide configuration manager
     '''
