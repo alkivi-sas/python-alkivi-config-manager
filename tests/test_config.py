@@ -1,4 +1,5 @@
 import os
+import mock
 
 from alkivi.config import ConfigManager
 
@@ -28,5 +29,16 @@ def test_config():
 
     assert config.get(endpoint, 'test') == 'test'
     assert config.get('pytest2', 'test') == 'test'
+    assert config.get('missing', 'test') == None
 
     _delete_config()
+
+def test_environ():
+    m_environ = {
+        'TEST_KEY1': 'key1',
+        'TEST_KEY2': 'key2',
+    }
+    with mock.patch.dict('os.environ', m_environ):
+        config = ConfigManager('test')
+        assert config.get('whatever', 'key1') == m_environ['TEST_KEY1']
+

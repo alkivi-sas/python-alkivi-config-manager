@@ -40,3 +40,6 @@ htmlcov
 
 # Vim tmp
 *.swp
+
+.pytest_cache
+

@@ -48,6 +48,7 @@ class ConfigManager(object):
         '''
         # create config parser
         self.config = RawConfigParser()
+        self.name = name
 
         # Locations where to look for configuration file by *increasing* priority
         paths = [
@@ -68,6 +69,14 @@ class ConfigManager(object):
             looking in environment
         :param str name: configuration parameter to lookup
         '''
+        # try from environ
+        try:
+            test = '{0}_{1}'.format(self.name.upper(), name.upper())
+            print('Testing {0} in env'.format(test))
+            return os.environ['{0}_{1}'.format(self.name.upper(), name.upper())]
+        except KeyError:
+            pass
+
         # try from specified section/endpoint
         try:
             return self.config.get(section, name)
