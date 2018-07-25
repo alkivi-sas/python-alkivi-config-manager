@@ -72,7 +72,6 @@ class ConfigManager(object):
         # try from environ
         try:
             test = '{0}_{1}'.format(self.name.upper(), name.upper())
-            print('Testing {0} in env'.format(test))
             return os.environ['{0}_{1}'.format(self.name.upper(), name.upper())]
         except KeyError:
             pass
